@@ -27,7 +27,7 @@ use Rubix\Server\HTTP\Controllers\GraphQLController;
 use Rubix\Server\GraphQL\Schema;
 use Rubix\Server\Events\ShuttingDown;
 use Rubix\Server\Listeners\RecordHTTPStats;
-use Rubix\Server\Listeners\DashboardEmitter;
+use Rubix\Server\Listeners\EmitEvents;
 use Rubix\Server\Listeners\LogFailures;
 use Rubix\Server\Listeners\StopTimers;
 use Rubix\Server\Listeners\CloseSSEChannels;
@@ -332,7 +332,8 @@ class HTTPServer implements Server, Verbose
 
         $eventBus = new EventBus($scheduler, $this->logger);
 
-        $dashboardChannel = new SSEChannel($this->sseReconnectBuffer);
+        $serverChannel = new SSEChannel($this->sseReconnectBuffer);
+        $modelChannel = new SSEChannel($this->sseReconnectBuffer);
 
         $model = new Model($estimator, $eventBus);
 
@@ -350,14 +351,15 @@ class HTTPServer implements Server, Verbose
 
         $subscriptions = Subscriptions::subscribe([
             new RecordHTTPStats($server->httpStats()),
-            new DashboardEmitter($dashboardChannel),
+            new EmitEvents($modelChannel, $serverChannel),
             new LogFailures($this->logger),
             new StopTimers($scheduler, [
                 $cacheEvictor,
                 $memoryUpdater,
             ]),
             new CloseSSEChannels([
-                $dashboardChannel,
+                $modelChannel,
+                $serverChannel,
             ]),
             new CloseSocket($socket),
         ]);
@@ -367,9 +369,8 @@ class HTTPServer implements Server, Verbose
         $schema = new Schema($model, $server);
 
         $router = new Router(Routes::collect([
-            new ModelController($model),
-            new ServerController($server),
-            new DashboardController($dashboardChannel),
+            new ModelController($model, $modelChannel),
+            new ServerController($server, $serverChannel),
             new GraphQLController($schema, new ReactPromiseAdapter()),
             new StaticAssetsController(self::ASSETS_PATH, $this->staticAssetsCache),
         ]));

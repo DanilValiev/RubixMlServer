@@ -4,13 +4,15 @@ namespace Rubix\Server\HTTP\Controllers;
 
 use Rubix\ML\Datasets\Unlabeled;
 use Rubix\Server\Models\Model;
+use Rubix\Server\Services\SSEChannel;
+use Rubix\Server\Helpers\JSON;
+use Rubix\Server\HTTP\Responses\EventStream;
 use Rubix\Server\HTTP\Responses\Success;
 use Rubix\Server\Exceptions\ValidationException;
-use Rubix\Server\Helpers\JSON;
+use Psr\Http\Message\ServerRequestInterface;
+use React\Stream\ThroughStream;
 use React\Promise\Promise;
 use Exception;
-
-use Psr\Http\Message\ServerRequestInterface;
 
 class ModelController extends JSONController
 {
@@ -22,11 +24,20 @@ class ModelController extends JSONController
     protected \Rubix\Server\Models\Model $model;
 
     /**
-     * @param \Rubix\Server\Models\Model $model
+     * The server-sent events emitter.
+     *
+     * @var \Rubix\Server\Services\SSEChannel
      */
-    public function __construct(Model $model)
+    protected \Rubix\Server\Services\SSEChannel $channel;
+
+    /**
+     * @param \Rubix\Server\Models\Model $model
+     * @param \Rubix\Server\Services\SSEChannel $channel
+     */
+    public function __construct(Model $model, SSEChannel $channel)
     {
         $this->model = $model;
+        $this->channel = $channel;
     }
 
     /**
@@ -46,6 +57,9 @@ class ModelController extends JSONController
                     [$this, 'parseRequestBody'],
                     [$this, 'predict'],
                 ],
+            ],
+            '/model/events' => [
+                'GET' => [$this, 'connectEventStream'],
             ],
         ];
 
@@ -187,5 +201,24 @@ class ModelController extends JSONController
 
             $resolve($response);
         });
+    }
+
+    /**
+     * Attach the event steam to an event source request.
+     *
+     * @param \Psr\Http\Message\ServerRequestInterface $request
+     * @return \Rubix\Server\HTTP\Responses\EventStream
+     */
+    public function connectEventStream(ServerRequestInterface $request) : EventStream
+    {
+        if ($request->hasHeader('Last-Event-ID')) {
+            $lastId = (int) $request->getHeaderLine('Last-Event-ID');
+        }
+
+        $stream = new ThroughStream();
+
+        $this->channel->attach($stream, $lastId ?? null);
+
+        return new EventStream($stream);
     }
 }

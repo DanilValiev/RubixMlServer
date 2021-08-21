@@ -74,7 +74,10 @@ class StaticAssetsController extends Controller
             '/ui' => [
                 'GET' => [$this, 'serveAppShell'],
             ],
-            '/ui/dashboard' => [
+            '/ui/model' => [
+                'GET' => [$this, 'serveAppShell'],
+            ],
+            '/ui/server' => [
                 'GET' => [$this, 'serveAppShell'],
             ],
             '/app.js' => [
