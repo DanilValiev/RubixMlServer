@@ -1,3 +1,6 @@
+.is-github-sponsors[data-v-6e9c8cc0] {
+  color: #ea4aaa;
+}
 .is-page-loader[data-v-f46656e4] {
   display: flex;
   position: fixed;
@@ -24543,8 +24546,8 @@ readers do not read off random characters that represent icons */
   font-weight: 900;
 }
 
-.has-text-first-letter-capitalized {
-  text-transform: lowercase;
+span.has-text-first-letter-capitalized {
+  display: inline-block;
 }
 
 .has-text-first-letter-capitalized:first-letter {

@@ -3,7 +3,7 @@
         <div class="level-item has-text-centered">
             <div>
                 <p class="has-tooltip-arrow has-tooltip-top has-tooltip-multiline" data-tooltip="The number of bytes currently allocated to the server process.">
-                    <span class="heading"><span class="icon"><i class="fas fa-memory mr-3"></i></span>Current</span>
+                    <span class="heading"><span class="icon"><i class="fas fa-memory mr-2"></i></span>Current</span>
                 </p>
                 <p class="title">{{ current.toFixed(1) }}M</p>
             </div>
@@ -11,7 +11,7 @@
         <div class="level-item has-text-centered">
             <div>
                 <p class="has-tooltip-arrow has-tooltip-top has-tooltip-multiline" data-tooltip="The maximum number of bytes consumed by the server process so far.">
-                    <span class="heading"><span class="icon"><i class="fas fa-memory mr-3"></i></span>Peak</span>
+                    <span class="heading"><span class="icon"><i class="fas fa-memory mr-2"></i></span>Peak</span>
                 </p>
                 <p class="title">{{ peak.toFixed(1) }}M</p>
             </div>

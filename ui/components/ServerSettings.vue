@@ -7,7 +7,9 @@
                         <span class="has-text-weight-medium">Host</span>
                     </span>
                 </td>
-                <td class="has-text-right">{{ settings.host }}</td>
+                <td class="has-text-right">
+                    <span>{{ settings.host }}</span>
+                </td>
             </tr>
             <tr>
                 <td>
@@ -15,7 +17,9 @@
                         <span class="has-text-weight-medium">Port</span>
                     </span>
                 </td>
-                <td class="has-text-right">{{ settings.port }}</td>
+                <td class="has-text-right">
+                    <span>{{ settings.port }}</span>
+                </td>
             </tr>
             <tr>
                 <td>
@@ -23,7 +27,9 @@
                         <span class="has-text-weight-medium">TLS</span>
                     </span>
                 </td>
-                <td class="has-text-right">{{ settings.tls ? 'Yes' : 'No' }}</td>
+                <td class="has-text-right">
+                    <span>{{ settings.tls ? 'Yes' : 'No' }}</span>
+                </td>
             </tr>
             <tr>
                 <td>
@@ -31,7 +37,9 @@
                         <span class="has-text-weight-medium">Max Concurrent Requests</span>
                     </span>
                 </td>
-                <td class="has-text-right">{{ settings.maxConcurrentRequests.toLocaleString() }}</td>
+                <td class="has-text-right">
+                    <span>{{ settings.maxConcurrentRequests.toLocaleString() }}</span>
+                </td>
             </tr>
             <tr>
                 <td>
@@ -40,7 +48,9 @@
                     </span>
                     <span class="tag ml-3">INI</span>
                 </td>
-                <td class="has-text-right">{{ memoryLimit }}</td>
+                <td class="has-text-right">
+                    <span>{{ memoryLimit }}</span>
+                </td>
             </tr>
             <tr>
                 <td>
@@ -49,7 +59,9 @@
                     </span>
                     <span class="tag ml-3">INI</span>
                 </td>
-                <td class="has-text-right">{{ postMaxSize }}</td>
+                <td class="has-text-right">
+                    <span>{{ postMaxSize }}</span>
+                </td>
             </tr>
         </tbody>
     </table>

@@ -14,11 +14,11 @@
         <div id="nav-menu" class="navbar-menu" :class="{ 'is-active' : open }">
             <div class="navbar-end">
                 <router-link :to="{ name: 'model' }" class="navbar-item" @click="open = false">
-                    <span class="icon"><i class="fas fa-brain"></i></span>
+                    <span class="icon mr-2"><i class="fas fa-brain"></i></span>
                     <span>Model</span>
                 </router-link>
                 <router-link :to="{ name: 'server' }" class="navbar-item" @click="open = false">
-                    <span class="icon"><i class="fas fa-server"></i></span>
+                    <span class="icon mr-2"><i class="fas fa-server"></i></span>
                     <span>Server</span>
                 </router-link>
             </div>

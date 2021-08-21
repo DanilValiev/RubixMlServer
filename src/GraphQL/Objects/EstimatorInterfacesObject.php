@@ -23,6 +23,13 @@ class EstimatorInterfacesObject extends ObjectType
             'name' => 'EstimatorInterfaces',
             'description' => 'The interfaces to the underlying estimator.',
             'fields' => [
+                'learner' => [
+                    'description' => 'Does the estimator implement the Learner interface?',
+                    'type' => Type::nonNull(Type::boolean()),
+                    'resolve' => function (Model $model) : bool {
+                        return $model->isLearner();
+                    },
+                ],
                 'probabilistic' => [
                     'description' => 'Does the estimator implement the Probabilistic interface?',
                     'type' => Type::nonNull(Type::boolean()),

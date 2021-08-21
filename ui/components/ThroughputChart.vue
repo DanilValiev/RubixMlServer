@@ -1,5 +1,5 @@
 <template>
-    <figure class="image is-16by9">
+    <figure class="image is-3by2">
         <div id="throughput-chart" class="has-ratio"></div>
     </figure>
 </template>

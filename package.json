@@ -1,6 +1,6 @@
 {
     "name": "rubix-server-web-ui",
-    "description": "The Rubix ML Server web user interface (UI).",
+    "description": "The Rubix ML Server web user interface.",
     "author": "Andrew DalPino",
     "license": "MIT",
     "private": true,

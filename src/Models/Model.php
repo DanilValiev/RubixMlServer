@@ -2,11 +2,11 @@
 
 namespace Rubix\Server\Models;
 
-use Rubix\ML\Estimator;
 use Rubix\ML\Learner;
+use Rubix\ML\Estimator;
 use Rubix\ML\Probabilistic;
-use Rubix\ML\Datasets\Dataset;
 use Rubix\ML\Helpers\Params;
+use Rubix\ML\Datasets\Dataset;
 use Rubix\Server\Services\EventBus;
 use Rubix\ML\AnomalyDetectors\Scoring;
 use Rubix\Server\Events\DatasetInferred;
@@ -53,6 +53,78 @@ class Model
 
         $this->estimator = $estimator;
         $this->eventBus = $eventBus;
+    }
+
+    /**
+     * Return the integer-encoded type of the estimator.
+     *
+     * @return int
+     */
+    public function type() : int
+    {
+        return $this->estimator->type()->code();
+    }
+
+    /**
+     * Return the integer-encoded data types the model is compatible with.
+     *
+     * @return int[]
+     */
+    public function compatibility() : array
+    {
+        return array_map(function ($type) {
+            return $type->code();
+        }, $this->estimator->compatibility());
+    }
+
+    /**
+     * Return the hyper-parameters of the model.
+     *
+     * @return string[]
+     */
+    public function hyperparameters() : array
+    {
+        return array_map([Params::class, 'toString'], $this->estimator->params());
+    }
+
+    /**
+     * Does the estimator implement the Learner interface?
+     *
+     * @return bool
+     */
+    public function isLearner() : bool
+    {
+        return $this->estimator instanceof Learner;
+    }
+
+    /**
+     * Does the estimator implement the Probabilistic interface?
+     *
+     * @return bool
+     */
+    public function isProbabilistic() : bool
+    {
+        return $this->estimator instanceof Probabilistic;
+    }
+
+    /**
+     * Does the estimator implement the Scoring interface?
+     *
+     * @return bool
+     */
+    public function isScoring() : bool
+    {
+        return $this->estimator instanceof Scoring;
+    }
+
+    /**
+     * Return the number of samples the model has inferred so far.
+     *
+     * @return int
+     */
+    public function numSamplesInferred() : int
+    {
+        return $this->numSamplesInferred;
     }
 
     /**
@@ -119,68 +191,6 @@ class Model
     }
 
     /**
-     * Return the integer-encoded type of the estimator.
-     *
-     * @return int
-     */
-    public function type() : int
-    {
-        return $this->estimator->type()->code();
-    }
-
-    /**
-     * Return the integer-encoded data types the model is compatible with.
-     *
-     * @return int[]
-     */
-    public function compatibility() : array
-    {
-        return array_map(function ($type) {
-            return $type->code();
-        }, $this->estimator->compatibility());
-    }
-
-    /**
-     * Return the hyper-parameters of the model.
-     *
-     * @return string[]
-     */
-    public function hyperparameters() : array
-    {
-        return array_map([Params::class, 'toString'], $this->estimator->params());
-    }
-
-    /**
-     * Does the estimator implement the Probabilistic interface?
-     *
-     * @return bool
-     */
-    public function isProbabilistic() : bool
-    {
-        return $this->estimator instanceof Probabilistic;
-    }
-
-    /**
-     * Does the estimator implement the Scoring interface?
-     *
-     * @return bool
-     */
-    public function isScoring() : bool
-    {
-        return $this->estimator instanceof Scoring;
-    }
-
-    /**
-     * Return the number of samples the model has inferred so far.
-     *
-     * @return int
-     */
-    public function numSamplesInferred() : int
-    {
-        return $this->numSamplesInferred;
-    }
-
-    /**
      * Return the model as an associative array.
      *
      * @return mixed[]
@@ -192,6 +202,7 @@ class Model
             'compatibility' => $this->compatibility(),
             'hyperparameters' => $this->hyperparameters(),
             'interfaces' => [
+                'learner' => $this->isLearner(),
                 'probabilistic' => $this->isProbabilistic(),
                 'ranking' => $this->isScoring(),
             ],

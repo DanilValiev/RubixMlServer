@@ -1,5 +1,5 @@
 <template>
-    <figure class="image is-16by9">
+    <figure class="image is-3by1">
         <div id="inference-rate-chart" class="has-ratio"></div>
     </figure>
 </template>
@@ -65,10 +65,10 @@ export default Vue.extend({
                 type: 'scattergl',
                 line: {
                     width: 2,
-                    color: 'rgb(75, 192, 192)',
+                    color: 'rgb(32, 156, 238)',
                 },
                 fill: 'tozeroy',
-                fillcolor: 'rgba(75, 192, 192, 0.1)',
+                fillcolor: 'rgba(32, 156, 238, 0.1)',
             },
             {
                 name: 'Samples',
@@ -78,10 +78,10 @@ export default Vue.extend({
                 mode: 'lines',
                 line: {
                     width: 2,
-                    color: 'rgb(255, 205, 86)',
+                    color: 'rgb(255, 159, 64)',
                 },
                 fill: 'tozeroy',
-                fillcolor: 'rgba(255, 205, 86, 0.1)',
+                fillcolor: 'rgba(255, 159, 64, 0.1)',
             },
         ], {
             legend: {

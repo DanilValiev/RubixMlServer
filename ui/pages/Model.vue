@@ -2,6 +2,19 @@
     <div>
         <section class="section">
             <div class="container">
+                <div class="columns">
+                    <div class="column is-half">
+
+                    </div>
+                    <div class="column is-half">
+                        <h2 class="title is-size-4"><span class="icon mr-3"><i class="fas fa-sliders-h"></i></span>Hyper-parameters</h2>
+                        <hyper-parameters v-if="model" :model="model"></hyper-parameters>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section">
+            <div class="container">
                 <inference-level v-if="model" :model="model"></inference-level>
                 <inference-rate-chart v-if="model" :model="model"></inference-rate-chart>
             </div>
@@ -12,6 +25,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { fragment as HyperparametersFragment } from '../components/Hyperparameters.vue';
 import { fragment as InferenceLevelFragment } from '../components/InferenceLevel.vue';
 import { fragment as InferenceRateChartFragment } from '../components/InferenceRateChart.vue';
 import gql from 'graphql-tag';
@@ -32,10 +46,12 @@ export default Vue.extend({
             query: gql`
                 query getModelPage {
                     model {
+                        ...Hyperparameters
                         ...InferenceLevel
                         ...InferenceRateChart
                     }
                 }
+                ${HyperparametersFragment}
                 ${InferenceLevelFragment}
                 ${InferenceRateChartFragment}
             `,

@@ -2,22 +2,34 @@
     <table class="table is-bordered is-striped is-fullwidth">
         <tbody>
             <tr>
-                <td><span class="has-tooltip-arrow has-tooltip-top has-tooltip-multiline" data-tooltip="The date and time that the server started.">
-                    <span class="has-text-weight-medium">Up Since</span>
-                </span></td>
-                <td class="has-text-right">{{ upSince }}</td>
+                <td>
+                    <span class="has-tooltip-arrow has-tooltip-top has-tooltip-multiline" data-tooltip="The date and time that the server started.">
+                        <span class="has-text-weight-medium">Up Since</span>
+                    </span>
+                </td>
+                <td class="has-text-right">
+                    <span>{{ upSince }}</span>
+                </td>
             </tr>
             <tr>
-                <td><span class="has-tooltip-arrow has-tooltip-top has-tooltip-multiline" data-tooltip="The amount of time that the server has been running.">
-                    <span class="has-text-weight-medium">Uptime</span>
-                </span></td>
-                <td class="has-text-right has-text-first-letter-capitalized">{{ uptime }}</td>
+                <td>
+                    <span class="has-tooltip-arrow has-tooltip-top has-tooltip-multiline" data-tooltip="The amount of time that the server has been running.">
+                        <span class="has-text-weight-medium">Uptime</span>
+                    </span>
+                </td>
+                <td class="has-text-right">
+                    <span class="has-text-first-letter-capitalized">{{ uptime }}</span>
+                </td>
             </tr>
             <tr>
-                <td><span class="has-tooltip-arrow has-tooltip-top has-tooltip-multiline" data-tooltip="The process ID (PID) of the server.">
-                    <span class="has-text-weight-medium">PID</span>
-                </span></td>
-                <td class="has-text-right">{{ info.pid }}</td>
+                <td>
+                    <span class="has-tooltip-arrow has-tooltip-top has-tooltip-multiline" data-tooltip="The process ID (PID) of the server.">
+                        <span class="has-text-weight-medium">PID</span>
+                    </span>
+                </td>
+                <td class="has-text-right">
+                    <span>{{ info.pid }}</span>
+                </td>
             </tr>
         </tbody>
     </table>
