@@ -21,7 +21,6 @@ use Rubix\Server\HTTP\Middleware\Internal\CheckRequestBodySize;
 use Rubix\Server\HTTP\Middleware\Internal\CircuitBreaker;
 use Rubix\Server\HTTP\Controllers\ModelController;
 use Rubix\Server\HTTP\Controllers\ServerController;
-use Rubix\Server\HTTP\Controllers\DashboardController;
 use Rubix\Server\HTTP\Controllers\StaticAssetsController;
 use Rubix\Server\HTTP\Controllers\GraphQLController;
 use Rubix\Server\GraphQL\Schema;

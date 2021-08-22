@@ -9,10 +9,11 @@ use Rubix\ML\Loggers\BlackHole;
 use Rubix\Server\Models\Model;
 use Rubix\Server\Services\EventBus;
 use Rubix\Server\Services\Scheduler;
+use Rubix\Server\Services\SSEChannel;
 use Rubix\Server\HTTP\Controllers\ModelController;
 use Rubix\Server\HTTP\Controllers\JSONController;
 use Rubix\Server\HTTP\Controllers\Controller;
-use React\EventLoop\Factory as Loop;
+use React\EventLoop\Loop;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -43,7 +44,7 @@ class ModelControllerTest extends TestCase
 
         $estimator->train($dataset);
 
-        $this->controller = new ModelController(new Model($estimator, new EventBus(new Scheduler(Loop::create()), new BlackHole())));
+        $this->controller = new ModelController(new Model($estimator, new EventBus(new Scheduler(Loop::get()), new BlackHole())), new SSEChannel(0));
     }
 
     /**
