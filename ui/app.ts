@@ -5,6 +5,7 @@ import VueSSE from 'vue-sse';
 import App from './App.vue';
 import MainNav from './components/MainNav.vue';
 import MainFooter from './components/MainFooter.vue';
+import ModelInfo from './components/ModelInfo.vue';
 import Hyperparameters from './components/Hyperparameters.vue';
 import InferenceLevel from './components/InferenceLevel.vue';
 import InferenceRateChart from './components/InferenceRateChart.vue';
@@ -57,6 +58,7 @@ if ('serviceWorker' in navigator) {
 Vue.component('app', App);
 Vue.component('main-nav', MainNav);
 Vue.component('main-footer', MainFooter);
+Vue.component('model-info', ModelInfo);
 Vue.component('hyper-parameters', Hyperparameters);
 Vue.component('inference-level', InferenceLevel);
 Vue.component('inference-rate-chart', InferenceRateChart);

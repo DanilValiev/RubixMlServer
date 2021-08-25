@@ -4,10 +4,11 @@
             <div class="container">
                 <div class="columns">
                     <div class="column is-half">
-
+                        <h2 class="title is-size-4"><span class="icon mr-2"><i class="fas fa-sliders-h"></i></span>Model Info</h2>
+                        <model-info v-if="model" :model="model"></model-info>
                     </div>
                     <div class="column is-half">
-                        <h2 class="title is-size-4"><span class="icon mr-3"><i class="fas fa-sliders-h"></i></span>Hyper-parameters</h2>
+                        <h2 class="title is-size-4"><span class="icon mr-2"><i class="fas fa-sliders-h"></i></span>Hyper-parameters</h2>
                         <hyper-parameters v-if="model" :model="model"></hyper-parameters>
                     </div>
                 </div>
@@ -25,6 +26,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { fragment as ModelInfoFragment } from '../components/ModelInfo.vue';
 import { fragment as HyperparametersFragment } from '../components/Hyperparameters.vue';
 import { fragment as InferenceLevelFragment } from '../components/InferenceLevel.vue';
 import { fragment as InferenceRateChartFragment } from '../components/InferenceRateChart.vue';
@@ -46,11 +48,13 @@ export default Vue.extend({
             query: gql`
                 query getModelPage {
                     model {
+                        ...ModelInfo
                         ...Hyperparameters
                         ...InferenceLevel
                         ...InferenceRateChart
                     }
                 }
+                ${ModelInfoFragment}
                 ${HyperparametersFragment}
                 ${InferenceLevelFragment}
                 ${InferenceRateChartFragment}
