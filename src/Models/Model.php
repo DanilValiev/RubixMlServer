@@ -92,6 +92,8 @@ class Model
 
         $this->eventBus->dispatch(new DatasetInferred($dataset));
 
+        gc_collect_cycles();
+
         return $probabilities;
     }
 
